@@ -1,0 +1,203 @@
+/* ==========================================================================
+   PULSO — shared stylesheet for category pages
+   Design language: "wire service" — a modern take on the press telegraph /
+   stock-ticker aesthetic. Paper ground, ink type, gold for Finance,
+   green/red ticker accents borrowed from market tape.
+   ========================================================================== */
+
+:root{
+  --paper:      #E8E6E1;
+  --paper-2:    #DEDBD3;
+  --ink:        #1B1F23;
+  --ink-soft:   #4A4F55;
+  --rule:       #C7C3B8;
+  --gold:       #C9A227;
+  --up:         #1C7C54;
+  --down:       #B23A2F;
+  --white:      #FAF9F6;
+
+  --display: "Source Serif 4", Georgia, serif;
+  --body:    "Inter", -apple-system, Segoe UI, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, monospace;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none;}
+img{max-width:100%;display:block;}
+
+/* ---------- Masthead ---------- */
+.masthead{
+  border-bottom:3px solid var(--ink);
+  padding:1.1rem 1.5rem 0.9rem;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:0.5rem;
+}
+.masthead .brand{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:2.1rem;
+  letter-spacing:0.5px;
+}
+.masthead .dateline{
+  font-family:var(--mono);
+  font-size:0.75rem;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+}
+nav.primary-nav{
+  border-bottom:1px solid var(--rule);
+  background:var(--paper-2);
+  display:flex;
+  gap:1.5rem;
+  padding:0.6rem 1.5rem;
+  font-family:var(--mono);
+  font-size:0.78rem;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  overflow-x:auto;
+}
+nav.primary-nav a{
+  white-space:nowrap;
+  padding-bottom:0.2rem;
+  border-bottom:2px solid transparent;
+}
+nav.primary-nav a.active,
+nav.primary-nav a:hover{
+  border-bottom-color:var(--gold);
+}
+
+/* ---------- Ticker (signature element) ---------- */
+.ticker-wrap{
+  background:var(--ink);
+  color:var(--white);
+  overflow:hidden;
+  white-space:nowrap;
+  border-bottom:1px solid #000;
+}
+.ticker{
+  display:inline-block;
+  padding-left:100%;
+  animation:scroll-ticker 45s linear infinite;
+  font-family:var(--mono);
+  font-size:0.82rem;
+}
+.ticker span{
+  margin-right:2.5rem;
+}
+.ticker .up{color:var(--up);}
+.ticker .down{color:var(--down);}
+@keyframes scroll-ticker{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-100%);}
+}
+@media (prefers-reduced-motion: reduce){
+  .ticker{animation:none;padding-left:1rem;}
+}
+
+/* ---------- Category header band ---------- */
+.category-band{
+  padding:2rem 1.5rem 1.2rem;
+  border-bottom:1px solid var(--rule);
+}
+.category-band .eyebrow{
+  font-family:var(--mono);
+  font-size:0.75rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--accent, var(--gold));
+}
+.category-band h1{
+  font-family:var(--display);
+  font-size:2.6rem;
+  margin:0.3rem 0 0.4rem;
+  line-height:1.05;
+}
+.category-band p.dek{
+  color:var(--ink-soft);
+  max-width:60ch;
+  margin:0;
+  font-size:1.02rem;
+}
+
+/* ---------- Article grid ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:0;
+  border-top:1px solid var(--rule);
+}
+.card{
+  padding:1.4rem 1.5rem;
+  border-right:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  display:flex;
+  flex-direction:column;
+  gap:0.55rem;
+  transition:background 0.15s ease;
+}
+.card:hover{background:var(--paper-2);}
+.card .tag{
+  font-family:var(--mono);
+  font-size:0.68rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--accent, var(--gold));
+}
+.card h2{
+  font-family:var(--display);
+  font-size:1.28rem;
+  line-height:1.25;
+  margin:0;
+}
+.card p{
+  color:var(--ink-soft);
+  font-size:0.92rem;
+  line-height:1.5;
+  margin:0;
+}
+.card .meta{
+  font-family:var(--mono);
+  font-size:0.72rem;
+  color:var(--ink-soft);
+  margin-top:auto;
+  padding-top:0.4rem;
+}
+.card.feature{
+  grid-column:span 2;
+}
+.card.feature h2{font-size:1.75rem;}
+@media (max-width:640px){
+  .card.feature{grid-column:span 1;}
+  .category-band h1{font-size:2rem;}
+}
+
+/* ---------- Footer ---------- */
+footer{
+  border-top:3px solid var(--ink);
+  padding:1.5rem;
+  font-family:var(--mono);
+  font-size:0.75rem;
+  color:var(--ink-soft);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:0.5rem;
+}
+
+/* ---------- Focus visibility ---------- */
+a:focus-visible, button:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:2px;
+}
